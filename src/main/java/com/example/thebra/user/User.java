@@ -1,5 +1,6 @@
 package com.example.thebra.user;
 
+import com.example.thebra.order.Order;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -41,15 +42,15 @@ public class User {
     @Column(nullable = false, columnDefinition = "varchar(20)")
     @Pattern(regexp = "^[a-zA-Z0-9_.+-]+@gmail\\.com$", message = "Email address must be a valid Gmail address")
     private String gmail;
-
     private Role role;
+
 
 
     public enum Role {
         ADMIN, USER
     }
 
-    public User(String password, String username, String firstName, String lastName, String phone, String gmail,Role role) {
+    public User(String password, String username, String firstName, String lastName, String phone, String gmail, Role role) {
         this.password = password;
         this.username = username;
         this.firstName = firstName;
@@ -57,7 +58,6 @@ public class User {
         this.phone = phone;
         this.gmail = gmail;
         this.role = role;
-
     }
 
 }
