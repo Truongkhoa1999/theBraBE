@@ -11,4 +11,4 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17-jdk-slim
 COPY --from=build /target/thebra-0.0.1-SNAPSHOT.jar thebra.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","fs14-backend.jar"]
+ENTRYPOINT ["java","-jar","thebra.jar"]
