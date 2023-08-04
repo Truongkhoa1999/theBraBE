@@ -1,1 +1,1 @@
-web: java -jar thebra.jar
+web: java -jar target/thebra-0.01-snapshot.war
