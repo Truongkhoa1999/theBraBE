@@ -34,4 +34,11 @@ public class OrderController {
         return orderService.createNewOrder(order);
     }
 
+    @PutMapping("/{id}")
+    public Order updatePaymentStatus(@RequestBody UUID id) {
+        Order order = orderService.findOrderById(id);
+        order.setPaymentStatus("Paid");
+        return order;
+    }
+
 }
