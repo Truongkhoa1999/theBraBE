@@ -54,7 +54,6 @@ public class UserController {
                 user.getPhone(),
                 user.getGmail(),
                 User.Role.USER
-
         );
         userService.createNewUser(newUser);
         Map<String, String> token = new HashMap<>();

@@ -1,10 +1,14 @@
 package com.example.thebra.chargerequest;
 
+import com.example.thebra.order.Order;
+import com.example.thebra.order.OrderService;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model; // Correct import for the Model class
+
+import java.util.UUID;
 
 
 @RestController
@@ -14,9 +18,16 @@ public class StripeController {
     @Autowired
     private StripeService stripeService;
 
+    @Autowired
+    private OrderService orderService;
+
     @PostMapping("/charge")
-    public String charge(@RequestBody ChargeRequest chargeRequest, Model model)
+    public String charge(@RequestBody ChargeRequest chargeRequest, Model model, UUID id)
             throws StripeException {
+//        Update OrderId status
+         Order order = orderService.findOrderById(id);
+         order.setPaymentStatus("Paid");
+//        Make Stripe request
         chargeRequest.setCurrency(ChargeRequest.Currency.EUR);
         Charge charge = stripeService.charge(chargeRequest);
         if (charge != null) {
