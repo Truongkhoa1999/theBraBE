@@ -33,7 +33,7 @@ public class Order {
     private Date orderDate;
     //    Relationship
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private UUID userId;
 
     //relationships
@@ -45,5 +45,4 @@ public class Order {
         this.orderDate = orderDate;
         this.userId = userId;
     }
-
 }
