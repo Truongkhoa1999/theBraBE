@@ -33,7 +33,7 @@ public class Order {
     private Date orderDate;
     //    Relationship
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private UUID userId;
 
     //relationships
