@@ -31,4 +31,12 @@ public class OrderItemsController {
         }
         return savedOrderItems;
     }
+    @PostMapping("/ForNonUser")
+    public List<OrderItems> createOrderItemsForNonUser(@RequestBody List<OrderItems> orderItemsList) {
+        List<OrderItems>   savedOrderItems = new ArrayList<>();
+        for (OrderItems orderItems : orderItemsList){
+            savedOrderItems.add(orderItemsService.createNewOrderItems(orderItems));
+        }
+        return savedOrderItems;
+    }
 }
