@@ -35,14 +35,20 @@ public class Order {
 
     @Column(nullable = true)
     private UUID userId;
+    @Column(nullable = true)
+    private String anonymousUserId;
+    @Column(nullable = true)
+    private String anonymousUserGmail;
 
     //relationships
-    public Order(BigDecimal totalAmount, String paymentStatus, String shippingAddress, String deliveryMethod, Date orderDate, UUID userId) {
+    public Order(BigDecimal totalAmount, String paymentStatus, String shippingAddress, String deliveryMethod, Date orderDate, UUID userId, String anonymousUserId, String anonymousUserGmail ) {
         this.totalAmount = totalAmount;
         this.paymentStatus = paymentStatus;
         this.shippingAddress = shippingAddress;
         this.deliveryMethod = deliveryMethod;
         this.orderDate = orderDate;
         this.userId = userId;
+        this.anonymousUserId = anonymousUserId;
+        this.anonymousUserGmail =anonymousUserGmail;
     }
 }

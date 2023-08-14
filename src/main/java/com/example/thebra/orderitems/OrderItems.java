@@ -34,7 +34,5 @@ public class OrderItems {
         this.productId = productId;
         this.orderId = orderId;
     }
-//    public OrderItems() {
-//        // Default constructor
-//    }
+
 }

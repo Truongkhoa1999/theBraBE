@@ -33,8 +33,13 @@ public class OrderController {
     public Order createorder(@RequestBody Order order) {
         return orderService.createNewOrder(order);
     }
+
     @PostMapping("/forNonUser")
     public Order createorderForNonUser(@RequestBody Order order) {
+        if (order.getUserId() == null) {
+            String anonymousUserId = UUID.randomUUID().toString()+"_anonymous";
+            order.setAnonymousUserId(anonymousUserId);
+        }
         return orderService.createNewOrder(order);
     }
 
