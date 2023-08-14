@@ -35,9 +35,9 @@ public class Order {
 
     @Column(nullable = true)
     private UUID userId;
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "text")
     private String anonymousUserId;
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "text")
     private String anonymousUserGmail;
 
     //relationships

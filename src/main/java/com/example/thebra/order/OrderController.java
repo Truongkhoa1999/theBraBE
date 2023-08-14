@@ -42,6 +42,4 @@ public class OrderController {
         }
         return orderService.createNewOrder(order);
     }
-
-
 }
