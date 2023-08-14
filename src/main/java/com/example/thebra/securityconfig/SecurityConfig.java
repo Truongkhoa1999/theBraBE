@@ -67,6 +67,8 @@ public class SecurityConfig {
                 .permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/customers/signup")
                 .permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/products/")
+                .permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
