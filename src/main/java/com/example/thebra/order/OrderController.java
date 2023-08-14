@@ -33,6 +33,10 @@ public class OrderController {
     public Order createorder(@RequestBody Order order) {
         return orderService.createNewOrder(order);
     }
+    @PostMapping("/forNonUser")
+    public Order createorderForNonUser(@RequestBody Order order) {
+        return orderService.createNewOrder(order);
+    }
 
 //    @PutMapping("/{id}")
 //    public Order updatePaymentStatus(@RequestBody UUID id) {
