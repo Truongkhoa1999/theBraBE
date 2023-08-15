@@ -24,8 +24,8 @@ public class StripeController {
     @PostMapping("/charge")
     public String charge(@RequestBody ChargeRequest chargeRequest, Model model)
             throws StripeException {
-        UUID id = chargeRequest.getId();
-         Order order = orderService.findOrderById(id);
+        UUID orderId = chargeRequest.getOrderId();
+         Order order = orderService.findOrderById(orderId);
          order.setPaymentStatus("Paid");
 //        Make Stripe request
         chargeRequest.setCurrency(ChargeRequest.Currency.EUR);

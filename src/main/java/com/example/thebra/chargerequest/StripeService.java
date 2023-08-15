@@ -27,6 +27,7 @@ public class StripeService {
     public Charge charge(ChargeRequest chargeRequest) {
         try {
             System.out.println("Total Amount: " + chargeRequest.getAmount()); // Add this line for logging
+
             Map<String, Object> chargeParams = new HashMap<>();
             chargeParams.put("amount", chargeRequest.getAmount());
             chargeParams.put("currency", chargeRequest.getCurrency());

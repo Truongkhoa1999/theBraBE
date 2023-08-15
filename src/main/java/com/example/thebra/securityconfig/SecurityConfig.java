@@ -71,6 +71,8 @@ public class SecurityConfig {
                 .permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/products/")
                 .permitAll()
+                .requestMatchers(HttpMethod.POST, "api/v1/stripe/charge")
+                .permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
