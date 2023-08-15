@@ -22,22 +22,21 @@ public class StripeController {
     private OrderService orderService;
 
     @PostMapping("/charge")
-    public String charge(@RequestBody ChargeRequest chargeRequest, Model model)
+    public String charge(@RequestBody ChargeRequest chargeRequest, Model model, UUID id)
             throws StripeException {
-        UUID id = chargeRequest.getId();
-        Order order = orderService.findOrderById(id);
+//        Update OrderId status
+         Order order = orderService.findOrderById(id);
+         order.setPaymentStatus("Paid");
 //        Make Stripe request
         chargeRequest.setCurrency(ChargeRequest.Currency.EUR);
-
         Charge charge = stripeService.charge(chargeRequest);
         if (charge != null) {
             model.addAttribute("id", charge.getId());
             model.addAttribute("status", charge.getStatus());
             model.addAttribute("chargeId", charge.getId());
             model.addAttribute("balance_transaction", charge.getBalanceTransaction());
-            order.setPaymentStatus("Paid");
-            return "result";
-        } else {
+        return "result";
+        }     else{
             model.addAttribute("error", "Payment failed. Please try again.");
             return "result";
         }

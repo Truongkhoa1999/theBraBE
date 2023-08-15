@@ -1,5 +1,4 @@
 package com.example.thebra.chargerequest;
-import com.stripe.model.PaymentIntent;
 
 import com.stripe.Stripe;
 import com.stripe.exception.*;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 
 import javax.naming.AuthenticationException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
