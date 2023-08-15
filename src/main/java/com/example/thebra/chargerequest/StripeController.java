@@ -26,12 +26,8 @@ public class StripeController {
             throws StripeException {
         UUID id = chargeRequest.getId();
         Order order = orderService.findOrderById(id);
-        order.setPaymentStatus("Pending");
-        String returnUrl = "http://localhost:5173/payment?orderId=" + order.getId();
-        chargeRequest.setReturnUrl(returnUrl);
 //        Make Stripe request
         chargeRequest.setCurrency(ChargeRequest.Currency.EUR);
-        String authenticationUrl = stripeService.initiate3DSecure(chargeRequest);
 
         Charge charge = stripeService.charge(chargeRequest);
         if (charge != null) {

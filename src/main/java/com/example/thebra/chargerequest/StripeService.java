@@ -39,23 +39,5 @@ public class StripeService {
             return null;
         }
     }
-    public String initiate3DSecure(ChargeRequest chargeRequest) {
-        try {
-            Map<String, Object> params = new HashMap<>();
-            params.put("amount", chargeRequest.getAmount());
-            params.put("currency", chargeRequest.getCurrency());
-            params.put("source", chargeRequest.getStripeToken());
-            params.put("redirect", new HashMap<String, String>() {{
-                put("return_url", chargeRequest.getReturnUrl());
-            }});
-
-            PaymentIntent paymentIntent = PaymentIntent.create(params);
-            return paymentIntent.getNextAction().getRedirectToUrl().getUrl();
-        } catch (StripeException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
 
 }
