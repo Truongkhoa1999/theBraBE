@@ -25,18 +25,23 @@ public class StripeController {
     public String charge(@RequestBody ChargeRequest chargeRequest, Model model)
             throws StripeException {
         UUID id = chargeRequest.getId();
-         Order order = orderService.findOrderById(id);
-         order.setPaymentStatus("Paid");
+        Order order = orderService.findOrderById(id);
+        order.setPaymentStatus("Pending");
+        String returnUrl = "http://localhost:5173/payment?orderId=" + order.getId();
+        chargeRequest.setReturnUrl(returnUrl);
 //        Make Stripe request
         chargeRequest.setCurrency(ChargeRequest.Currency.EUR);
+        String authenticationUrl = stripeService.initiate3DSecure(chargeRequest);
+
         Charge charge = stripeService.charge(chargeRequest);
         if (charge != null) {
             model.addAttribute("id", charge.getId());
             model.addAttribute("status", charge.getStatus());
             model.addAttribute("chargeId", charge.getId());
             model.addAttribute("balance_transaction", charge.getBalanceTransaction());
-        return "result";
-        }     else{
+            order.setPaymentStatus("Paid");
+            return "result";
+        } else {
             model.addAttribute("error", "Payment failed. Please try again.");
             return "result";
         }

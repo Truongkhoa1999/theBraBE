@@ -1,4 +1,5 @@
 package com.example.thebra.chargerequest;
+import com.stripe.model.PaymentIntent;
 
 import com.stripe.Stripe;
 import com.stripe.exception.*;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 
 import javax.naming.AuthenticationException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,5 +39,23 @@ public class StripeService {
             return null;
         }
     }
+    public String initiate3DSecure(ChargeRequest chargeRequest) {
+        try {
+            Map<String, Object> params = new HashMap<>();
+            params.put("amount", chargeRequest.getAmount());
+            params.put("currency", chargeRequest.getCurrency());
+            params.put("source", chargeRequest.getStripeToken());
+            params.put("redirect", new HashMap<String, String>() {{
+                put("return_url", chargeRequest.getReturnUrl());
+            }});
+
+            PaymentIntent paymentIntent = PaymentIntent.create(params);
+            return paymentIntent.getNextAction().getRedirectToUrl().getUrl();
+        } catch (StripeException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 }

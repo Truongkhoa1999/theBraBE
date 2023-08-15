@@ -14,4 +14,5 @@ public class ChargeRequest {
     private Currency currency;
     private String stripeToken;
     private UUID id;
+    private String returnUrl;
 }
