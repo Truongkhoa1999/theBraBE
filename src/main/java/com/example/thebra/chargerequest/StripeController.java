@@ -22,9 +22,9 @@ public class StripeController {
     private OrderService orderService;
 
     @PostMapping("/charge")
-    public String charge(@RequestBody ChargeRequest chargeRequest, Model model, UUID id)
+    public String charge(@RequestBody ChargeRequest chargeRequest, Model model)
             throws StripeException {
-//        Update OrderId status
+        UUID id = chargeRequest.getId();
          Order order = orderService.findOrderById(id);
          order.setPaymentStatus("Paid");
 //        Make Stripe request
