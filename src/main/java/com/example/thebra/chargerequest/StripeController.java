@@ -15,6 +15,7 @@ import java.util.UUID;
 
 
 @RestController
+@RequestMapping("api/v1/stripe")
 public class StripeController {
     @Value("${STRIPE_SECRET_KEY}")
     private String secretKey;
@@ -44,7 +45,7 @@ public class StripeController {
 //            return "result";
 //        }
 //    }
-    @PostMapping("api/v1/stripe/charge/")
+    @PostMapping("/charge")
     public String charge(@RequestBody ChargeRequest chargeRequest) throws StripeException {
         Stripe.apiKey = secretKey;
 
