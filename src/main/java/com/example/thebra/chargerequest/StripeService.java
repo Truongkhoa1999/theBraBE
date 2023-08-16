@@ -49,7 +49,7 @@ public class StripeService {
 //            return null;
 //        }
 //    }
-    @Transactional
+//    @Transactional
     public Charge charge(ChargeRequest chargeRequest) throws StripeException {
         Stripe.apiKey = stripeSecretKey;
         // Create a charge using Stripe API
