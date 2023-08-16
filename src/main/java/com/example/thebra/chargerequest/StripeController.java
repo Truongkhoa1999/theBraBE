@@ -44,7 +44,7 @@ public class StripeController {
 //            return "result";
 //        }
 //    }
-    @PostMapping("/api/v1/stripe/charge/")
+    @PostMapping("api/v1/stripe/charge/")
     public String charge(@RequestBody ChargeRequest chargeRequest) throws StripeException {
         Stripe.apiKey = secretKey;
 
