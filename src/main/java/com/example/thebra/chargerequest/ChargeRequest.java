@@ -13,5 +13,5 @@ public class ChargeRequest {
     private Long amount;
     private Currency currency;
     private String stripeToken;
-    private UUID orderId;
+//    private UUID orderId;
 }
