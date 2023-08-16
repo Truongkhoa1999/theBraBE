@@ -58,10 +58,10 @@ public class StripeService {
                 "currency", chargeRequest.getCurrency(),
                 "source", chargeRequest.getStripeToken()
         ));
-        if (charge != null) {
-            UUID orderId = chargeRequest.getOrderId();
-            orderService.updatePaymentStatus(orderId, "Paid");
-        }
+//        if (charge != null) {
+//            UUID orderId = chargeRequest.getOrderId();
+//            orderService.updatePaymentStatus(orderId, "Paid");
+//        }
         return charge;
     }
 
