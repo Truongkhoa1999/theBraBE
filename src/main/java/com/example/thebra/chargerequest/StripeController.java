@@ -15,7 +15,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("api/v1/stripe")
+@RequestMapping("/api/v1/stripe")
 public class StripeController {
     @Value("${STRIPE_SECRET_KEY}")
     private String secretKey;
@@ -25,26 +25,6 @@ public class StripeController {
     @Autowired
     private OrderService orderService;
 
-    //    @PostMapping("api/v1/stripe/charge")
-//    public String charge(@RequestBody ChargeRequest chargeRequest, Model model)
-//            throws StripeException {
-//        UUID orderId = chargeRequest.getOrderId();
-//        Order order = orderService.findOrderById(orderId);
-//        order.setPaymentStatus("Paid");
-////        Make Stripe request
-//        chargeRequest.setCurrency(ChargeRequest.Currency.EUR);
-//        Charge charge = stripeService.charge(chargeRequest);
-//        if (charge != null) {
-//            model.addAttribute("id", charge.getId());
-//            model.addAttribute("status", charge.getStatus());
-//            model.addAttribute("chargeId", charge.getId());
-//            model.addAttribute("balance_transaction", charge.getBalanceTransaction());
-//            return "result";
-//        } else {
-//            model.addAttribute("error", "Payment failed. Please try again.");
-//            return "result";
-//        }
-//    }
     @PostMapping("/charge")
     public String charge(@RequestBody ChargeRequest chargeRequest) throws StripeException {
         Stripe.apiKey = secretKey;

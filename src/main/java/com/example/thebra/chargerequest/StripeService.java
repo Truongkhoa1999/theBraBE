@@ -34,22 +34,6 @@ public class StripeService {
         System.out.println("Stripe Secret Key: " + secretKey); // Print the secret key
         Stripe.apiKey = secretKey;
     }
-
-    //    public Charge charge(ChargeRequest chargeRequest) {
-//        try {
-//            System.out.println("Total Amount: " + chargeRequest.getAmount()); // Add this line for logging
-//
-//            Map<String, Object> chargeParams = new HashMap<>();
-//            chargeParams.put("amount", chargeRequest.getAmount());
-//            chargeParams.put("currency", chargeRequest.getCurrency());
-//            chargeParams.put("source", chargeRequest.getStripeToken());
-//            return Charge.create(chargeParams);
-//        } catch (  StripeException e  ) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-//    @Transactional
     public Charge charge(ChargeRequest chargeRequest) throws StripeException {
         Stripe.apiKey = stripeSecretKey;
         // Create a charge using Stripe API
@@ -58,10 +42,6 @@ public class StripeService {
                 "currency", chargeRequest.getCurrency(),
                 "source", chargeRequest.getStripeToken()
         ));
-//        if (charge != null) {
-//            UUID orderId = chargeRequest.getOrderId();
-//            orderService.updatePaymentStatus(orderId, "Paid");
-//        }
         return charge;
     }
 
