@@ -7,6 +7,7 @@ import com.stripe.exception.*;
 
 import com.stripe.model.Charge;
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -48,18 +49,19 @@ public class StripeService {
 //            return null;
 //        }
 //    }
+    @Transactional
     public Charge charge(ChargeRequest chargeRequest) throws StripeException {
         Stripe.apiKey = stripeSecretKey;
-
         // Create a charge using Stripe API
         Charge charge = Charge.create(Map.of(
                 "amount", chargeRequest.getAmount(),
                 "currency", chargeRequest.getCurrency(),
                 "source", chargeRequest.getStripeToken()
         ));
-        UUID orderId = chargeRequest.getOrderId();
-        Order order = orderService.findOrderById(orderId);
-        order.setPaymentStatus("Paid");
+        if (charge != null) {
+            UUID orderId = chargeRequest.getOrderId();
+            orderService.updatePaymentStatus(orderId, "Paid");
+        }
         return charge;
     }
 

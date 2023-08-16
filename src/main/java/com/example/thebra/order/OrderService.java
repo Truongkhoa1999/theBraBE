@@ -23,5 +23,13 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
+    public Order updatePaymentStatus(UUID orderId, String paymentStatus) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        if (order != null) {
+            order.setPaymentStatus(paymentStatus);
+            return orderRepository.save(order);
+        }
+        return null;
+    }
 
 }
