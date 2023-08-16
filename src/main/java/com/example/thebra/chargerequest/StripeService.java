@@ -22,10 +22,8 @@ import java.util.Map;
 @Service
 public class StripeService {
 
-    @Value("${STRIPE_SECRET_KEY}")
-    private String secretKey;
-    @Value("${STRIPE_SECRET_KEY}") // Inject your Stripe secret key from application.properties
-    private String stripeSecretKey;
+    private final String secretKey = "sk_test_51NWsLeKEPicYF8bFnAdKL6QGW7yPJJBLrZLGbswc6VDMWJfH3TdrMnp73Jjn7OsKFTYsiqVOTmtmOfOWztqrGVtl00hA9oXTPH";  // Replace with your actual secret key
+
     @Autowired
     private OrderService orderService;
 
@@ -35,7 +33,7 @@ public class StripeService {
         Stripe.apiKey = secretKey;
     }
     public Charge charge(ChargeRequest chargeRequest) throws StripeException {
-        Stripe.apiKey = stripeSecretKey;
+        Stripe.apiKey = secretKey;
         // Create a charge using Stripe API
         Charge charge = Charge.create(Map.of(
                 "amount", chargeRequest.getAmount(),
