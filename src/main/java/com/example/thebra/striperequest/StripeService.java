@@ -1,15 +1,12 @@
-package com.example.thebra.chargerequest;
+package com.example.thebra.striperequest;
 
-import com.example.thebra.order.Order;
 import com.example.thebra.order.OrderService;
 import com.stripe.Stripe;
 import com.stripe.exception.*;
 
 import com.stripe.model.Charge;
 import jakarta.annotation.PostConstruct;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -27,7 +24,7 @@ public class StripeService {
         System.out.println("Stripe Secret Key: " + secretKey); // Print the secret key
         Stripe.apiKey = secretKey;
     }
-    public Charge charge(ChargeRequest chargeRequest) throws StripeException {
+    public Charge charge(StripeRequest chargeRequest) throws StripeException {
         Stripe.apiKey = secretKey;
         // Create a charge using Stripe API
         Charge charge = Charge.create(Map.of(

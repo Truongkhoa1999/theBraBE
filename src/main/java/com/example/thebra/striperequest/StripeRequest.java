@@ -1,4 +1,4 @@
-package com.example.thebra.chargerequest;
+package com.example.thebra.striperequest;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,18 +7,17 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-public class ChargeRequest {
+public class StripeRequest {
 
-    public enum Currency {
-        EUR, USD;
-    }
+
     private Long amount;
-    private Currency currency;
+    private String currency;
     private String stripeToken;
-//    private UUID orderId;
-    public ChargeRequest (Long amount, Currency currency, String stripeToken){
+    private UUID orderId;
+    public StripeRequest(Long amount, String currency, String stripeToken, UUID orderId){
         this.amount = amount;
         this.currency = currency;
         this.stripeToken = stripeToken;
+        this.orderId = orderId;
     }
 }
