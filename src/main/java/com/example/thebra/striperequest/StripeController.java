@@ -15,7 +15,7 @@ import org.springframework.ui.Model; // Correct import for the Model class
 
 
 @RestController
-@RequestMapping("/api/v1/stripe")
+@RequestMapping("api/v1/stripe")
 public class StripeController {
     private final String secretKey = "pk_test_51NWsLeKEPicYF8bFJDh3qQrRuRi61NgIGgzcm2C2aE1p6P8THLoqQYDH1VP0Kccl7BVdz8Pc77Fz9Z2R6riDlAjS00UT89BzRl";
 
@@ -38,7 +38,7 @@ public class StripeController {
             return "Payment failed.";
         }
     }
-    @PostMapping("/create-payment-link")
+    @PostMapping("/createpaymentlink")
     public ResponseEntity<String> createPaymentLink(@RequestBody StripeRequest stripeRequest) {
         // Set your Stripe secret key
         Stripe.apiKey = secretKey;
