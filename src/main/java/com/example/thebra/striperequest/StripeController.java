@@ -17,7 +17,7 @@ import org.springframework.ui.Model; // Correct import for the Model class
 @RestController
 @RequestMapping("/api/v1/stripe")
 public class StripeController {
-    private final String secretKey = "sk_test_51NWsLeKEPicYF8bFnAdKL6QGW7yPJJBLrZLGbswc6VDMWJfH3TdrMnp73Jjn7OsKFTYsiqVOTmtmOfOWztqrGVtl00hA9oXTPH";
+    private final String secretKey = "pk_test_51NWsLeKEPicYF8bFJDh3qQrRuRi61NgIGgzcm2C2aE1p6P8THLoqQYDH1VP0Kccl7BVdz8Pc77Fz9Z2R6riDlAjS00UT89BzRl";
 
     @Autowired
     private StripeService stripeService;
@@ -52,7 +52,6 @@ public class StripeController {
 
             PaymentIntent paymentIntent = PaymentIntent.create(params);
             String clientSecret = paymentIntent.getClientSecret();
-
             return ResponseEntity.ok(clientSecret);
         } catch (StripeException e) {
             e.printStackTrace();
