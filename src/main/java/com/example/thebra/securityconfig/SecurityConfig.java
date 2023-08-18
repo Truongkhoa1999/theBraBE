@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers( "/api/v1/order/{id}", "/api/v1/stripe/createpaymentlink")
+                .requestMatchers( "/api/v1/order/{id}","/api/v1/stripe/createpaymentlink")
                 .permitAll()
                 .requestMatchers(HttpMethod.GET,"/api/v1/customers/")
                 .permitAll()
