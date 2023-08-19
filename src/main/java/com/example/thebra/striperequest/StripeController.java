@@ -75,13 +75,13 @@ public class StripeController {
 @PostMapping("/createpaymentlink")
 public String createPaymentLink (@RequestBody StripeRequest stripeRequest){
 //    String fixUrl = "https://payreque.st/thebra/";
-    String fixUrl = "https://payreque.st/";
+    String fixUrl = "https://payreque.st/thebra/";
     Order order = orderService.findOrderById(stripeRequest.getOrderId());
     System.out.println(order);
     BigDecimal totalAmountInCents = order.getTotalAmount();
     String currency = stripeRequest.getCurrency();
     String customNote = UUID.randomUUID().toString();
-    String dynamicPaymentLink =fixUrl+customNote+"/"+currency+"/"+totalAmountInCents+"/";
+    String dynamicPaymentLink =fixUrl+customNote+"/"+totalAmountInCents;
     order.setPaymentRequestId(customNote);
     orderRepository.save(order);
      return dynamicPaymentLink;
