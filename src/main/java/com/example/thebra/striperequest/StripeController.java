@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.UUID;
 
 import com.example.thebra.order.Order;
+import com.example.thebra.order.OrderRepository;
 import com.example.thebra.order.OrderService;
 import com.google.gson.JsonObject;
 import com.stripe.Stripe;
@@ -31,6 +32,8 @@ public class StripeController {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private OrderRepository orderRepository;
 
     //    @PostMapping("/")
 //    public String charge(@RequestBody StripeRequest chargeRequest) throws StripeException {
@@ -78,7 +81,8 @@ public String createPaymentLink (@RequestBody StripeRequest stripeRequest){
     String currency = stripeRequest.getCurrency();
     String customNote = UUID.randomUUID().toString();
     String dynamicPaymentLink =fixUrl+currency+"/"+totalAmountInCents+"/"+customNote;
-
+    order.setPaymentRequestId(customNote);
+    orderRepository.save(order);
      return dynamicPaymentLink;
 }
 

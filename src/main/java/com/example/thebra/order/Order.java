@@ -39,9 +39,11 @@ public class Order {
     private String anonymousUserId;
     @Column(nullable = true, columnDefinition = "text")
     private String anonymousUserGmail;
+    @Column(nullable = true, columnDefinition = "text")
+    private String paymentRequestId;
 
     //relationships
-    public Order(BigDecimal totalAmount, String paymentStatus, String shippingAddress, String deliveryMethod, Date orderDate, UUID userId, String anonymousUserId, String anonymousUserGmail ) {
+    public Order(BigDecimal totalAmount, String paymentStatus, String shippingAddress, String deliveryMethod, Date orderDate, UUID userId, String anonymousUserId, String anonymousUserGmail,String paymentRequestId ) {
         this.totalAmount = totalAmount;
         this.paymentStatus = paymentStatus;
         this.shippingAddress = shippingAddress;
@@ -50,5 +52,6 @@ public class Order {
         this.userId = userId;
         this.anonymousUserId = anonymousUserId;
         this.anonymousUserGmail =anonymousUserGmail;
+        this.paymentRequestId = paymentRequestId;
     }
 }
