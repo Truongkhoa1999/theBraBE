@@ -1,6 +1,7 @@
 package com.example.thebra.striperequest;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.UUID;
 
 import com.example.thebra.order.Order;
 import com.example.thebra.order.OrderService;
@@ -75,7 +76,9 @@ public String createPaymentLink (@RequestBody StripeRequest stripeRequest){
     System.out.println(order);
     BigDecimal totalAmountInCents = order.getTotalAmount();
     String currency = stripeRequest.getCurrency();
-    String dynamicPaymentLink =fixUrl+currency+"/"+totalAmountInCents ;
+    String customNote = UUID.randomUUID().toString();
+    String dynamicPaymentLink =fixUrl+currency+"/"+totalAmountInCents+"/"+customNote;
+
      return dynamicPaymentLink;
 }
 
