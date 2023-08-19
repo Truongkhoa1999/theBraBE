@@ -29,16 +29,15 @@ public class WebhookController {
             String objectType = payload.get("object").asText();
             if ("payment_intent".equals(objectType)) {
                 String eventId = payload.get("id").asText();
-                String paymentId = payload.get("id").asText();
+                String paymentRequestId = payload.get("paymentRequestId").asText();
                 String paymentStatus = payload.get("status").asText();
 
                 if ("succeeded".equals(paymentStatus)) {
-                    // Find the order by paymentId (assuming you have the paymentId associated with the order)
-                    Order order = orderService.findOrderById(UUID.fromString(paymentId));
+                    Order order = orderRepository.findByPaymentRequestId(paymentRequestId);
 
-                    if (order != null) {
+                    if (order != null && "pending".equals(order.getPaymentStatus())) {
                         // Update the payment status and save the order
-                        order.setPaymentStatus(paymentStatus);
+                        order.setPaymentStatus("paid");
                         orderRepository.save(order);
                     }
                 }
