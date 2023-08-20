@@ -58,13 +58,13 @@ import org.springframework.ui.Model;
 //    }
 //}
 @RestController
-@RequestMapping("/api/v1/paymentintents")
+@RequestMapping("/api/v1/stripe")
 public class StripeController {
 
     @Autowired
     private StripeService stripeService;
 
-    @PostMapping("/")
+    @PostMapping("/paymentintents")
     public ResponseEntity<?> createPaymentIntent(@RequestBody StripeRequest stripeRequest) {
         try {
             PaymentIntentCreateParams params = new PaymentIntentCreateParams.Builder()
