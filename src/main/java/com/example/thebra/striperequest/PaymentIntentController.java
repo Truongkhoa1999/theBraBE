@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/v1/paymentitents")
 public class PaymentIntentController {
@@ -15,12 +19,14 @@ public class PaymentIntentController {
     private PaymentIntentService paymentIntentService;
 
     @PostMapping("/")
-    public ResponseEntity<String> createPaymentIntent(@RequestBody StripeRequest stripeRequest){
+    public ResponseEntity<Map<String,String>> createPaymentIntent(@RequestBody StripeRequest stripeRequest){
         try{
             String clientSecret = paymentIntentService.createPaymentIntent(stripeRequest);
-            return ResponseEntity.ok(clientSecret);
+            Map<String, String> responseMap = new HashMap<>();
+            responseMap.put("clientSecret",clientSecret);
+            return ResponseEntity.ok(responseMap);
         } catch (StripeException e){
-            return  ResponseEntity.badRequest().body("Failed to create payment intent");
+            return  ResponseEntity.badRequest().body(Collections.singletonMap("error","Failed to create payment intent"));
         }
     }
 }
