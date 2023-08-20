@@ -43,7 +43,7 @@ public class PaymentIntentService {
             return paymentIntent.getClientSecret();
         } catch (StripeException e){
             e.printStackTrace();
-            return "Failed to Create Payment Intent";
+            throw e;
         }
 
     }
