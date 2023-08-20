@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import com.stripe.param.PaymentIntentCreateParams.PaymentMethodOptions;
 
 
 //@RestController
@@ -67,18 +68,33 @@ public class StripeController {
     @PostMapping("/paymentintents")
     public ResponseEntity<?> createPaymentIntent(@RequestBody StripeRequest stripeRequest) {
         try {
+            System.out.println(stripeRequest);
+
             PaymentIntentCreateParams params = new PaymentIntentCreateParams.Builder()
                     .setAmount(stripeRequest.getAmount())
                     .setCurrency(stripeRequest.getCurrency())
+                    .addPaymentMethodType("card")
+                    .putMetadata("currency", stripeRequest.getCurrency())
+                    .setPaymentMethodOptions(
+                            PaymentMethodOptions.builder()
+                                    .setCard(
+                                            PaymentMethodOptions.Card.builder()
+                                                    .setRequestThreeDSecure(PaymentMethodOptions.Card.RequestThreeDSecure.AUTOMATIC)
+                                                    .build()
+                                    ).build()
+                    )
                     .build();
 
+
             PaymentIntent paymentIntent = stripeService.createPaymentIntent(params);
+            System.out.println(paymentIntent);
 
             Map<String, String> response = new HashMap<>();
             response.put("clientSecret", paymentIntent.getClientSecret());
 
             return ResponseEntity.ok(response);
         } catch (StripeException e) {
+            System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create PaymentIntent");
         }
     }
