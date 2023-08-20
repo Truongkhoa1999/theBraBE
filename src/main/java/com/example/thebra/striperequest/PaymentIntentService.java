@@ -28,6 +28,10 @@ public class PaymentIntentService {
         try {
             Stripe.apiKey = stripeApiKey;
             // Create a payment method using the stripeToken
+            System.out.println(stripeRequest.getStripeToken());
+
+            System.out.println("Before creating payment intent");
+
             Map<String, Object> paymentMethodParams = new HashMap<>();
             paymentMethodParams.put("type", "card");
             paymentMethodParams.put("card[token]", stripeRequest.getStripeToken());
@@ -45,14 +49,16 @@ public class PaymentIntentService {
             params.put("metadata", metadata);
 
             PaymentIntent paymentIntent = PaymentIntent.create(params);
-System.out.println(stripeRequest.getCurrency());
+            System.out.println(stripeRequest.getCurrency());
             System.out.println(stripeRequest.getAmount());
 
 //        Update Order records
             String paymentStatus = "paid";
             Order order = orderService.updatePaymentStatus(stripeRequest.getOrderId(), paymentStatus);
+            System.out.println("Finish creating payment intent");
+
             return paymentIntent.getClientSecret();
-        } catch (StripeException e){
+        } catch (StripeException e) {
             e.printStackTrace();
             throw e;
         }
