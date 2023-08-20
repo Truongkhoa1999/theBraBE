@@ -6,6 +6,7 @@ import com.example.thebra.order.OrderService;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
+import com.stripe.model.PaymentMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,17 @@ public class PaymentIntentService {
     public String createPaymentIntent(StripeRequest stripeRequest) throws StripeException {
         try {
             Stripe.apiKey = stripeApiKey;
+            // Create a payment method using the stripeToken
+            Map<String, Object> paymentMethodParams = new HashMap<>();
+            paymentMethodParams.put("type", "card");
+            paymentMethodParams.put("card[token]", stripeRequest.getStripeToken());
+            PaymentMethod paymentMethod = PaymentMethod.create(paymentMethodParams);
+
             Map<String, Object> params = new HashMap<>();
             params.put("amount", stripeRequest.getAmount());
             params.put("currency", stripeRequest.getCurrency());
+            params.put("payment_method", paymentMethod.getId());
+
 
 //        Meta data
             Map<String, String> metadata = new HashMap<>();
@@ -36,6 +45,8 @@ public class PaymentIntentService {
             params.put("metadata", metadata);
 
             PaymentIntent paymentIntent = PaymentIntent.create(params);
+System.out.println(stripeRequest.getCurrency());
+            System.out.println(stripeRequest.getAmount());
 
 //        Update Order records
             String paymentStatus = "paid";
