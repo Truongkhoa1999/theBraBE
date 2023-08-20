@@ -47,7 +47,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StripeService {
 
-    private String stripeSecretKey ="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\n";
+    private String stripeSecretKey ="sk_test_51NWsLeKEPicYF8bFnAdKL6QGW7yPJJBLrZLGbswc6VDMWJfH3TdrMnp73Jjn7OsKFTYsiqVOTmtmOfOWztqrGVtl00hA9oXTPH";
 
     public PaymentIntent createPaymentIntent(PaymentIntentCreateParams params) throws StripeException {
         Stripe.apiKey = stripeSecretKey;
