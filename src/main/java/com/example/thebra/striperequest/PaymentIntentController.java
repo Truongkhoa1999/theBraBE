@@ -22,8 +22,9 @@ public class PaymentIntentController {
     public ResponseEntity<Map<String,String>> createPaymentIntent(@RequestBody StripeRequest stripeRequest){
         try{
             String clientSecret = paymentIntentService.createPaymentIntent(stripeRequest);
+            String formattedClientSecret = clientSecret + "_secret_" + stripeRequest.getStripeToken();
             Map<String, String> responseMap = new HashMap<>();
-            responseMap.put("clientSecret",clientSecret);
+            responseMap.put("clientSecret",formattedClientSecret);
             return ResponseEntity.ok(responseMap);
         } catch (StripeException e){
             return  ResponseEntity.badRequest().body(Collections.singletonMap("error","Failed to create payment intent"));
