@@ -10,14 +10,12 @@ import java.util.UUID;
 public class StripeRequest {
 
 
-    private Double amount;
+    private Long amount;
     private String currency;
-    private String stripeToken;
-    private UUID orderId;
-    public StripeRequest(Double amount, String currency, String stripeToken, UUID orderId){
+
+    public StripeRequest(Long amount, String currency){
         this.amount = amount;
         this.currency = currency;
-        this.stripeToken = stripeToken;
-        this.orderId = orderId;
+
     }
 }
