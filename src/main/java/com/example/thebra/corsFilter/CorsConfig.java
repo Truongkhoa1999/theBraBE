@@ -10,7 +10,6 @@ public class CorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("https://64e38282e0140d2c0944967b--ubiquitous-kataifi-98ab0e.netlify.app")
-                .allowedOrigins("*")
                 .allowedOrigins("http://localhost:5173/")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*")
