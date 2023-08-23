@@ -69,7 +69,7 @@ public class UserController {
             if (existingUser.getUsername().equals(newUser.getUsername())) {
                 return "Username already exists";
             }
-            if(existingUser.getGmail().equalsIgnoreCase(newUser.getGmail())){
+            if(existingUser.getGmail().equalsIgnoreCase(newUser.getGmail().toLowerCase())){
                 return "Gmail already assigned with another account";
             }
         }
