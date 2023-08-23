@@ -60,4 +60,22 @@ public class UserController {
         token.put("token", jwtUtils.generateToken(newUser));
         return token;
     }
+
+    @PostMapping("/pregister")
+    public String checkIfRegisterInfoValid(@RequestBody User newUser) {
+        List<User> users = userRepository.findAll();
+
+        for (User existingUser : users) {
+            if (existingUser.getUsername().equals(newUser.getUsername())) {
+                return "Username already exists";
+            }
+            if(existingUser.getGmail().equals(newUser.getGmail())){
+                return "Gmail already assigned with another account";
+            }
+            return "Passed";
+        }
+
+
+        return "";
+    }
 }
