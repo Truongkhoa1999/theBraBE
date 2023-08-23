@@ -75,6 +75,7 @@ public class StripeController {
                     .setCurrency(stripeRequest.getCurrency())
                     .addPaymentMethodType("card")
                     .putMetadata("currency", stripeRequest.getCurrency())
+                    .putMetadata("order_id",stripeRequest.getOrderId())
                     .setPaymentMethodOptions(
                             PaymentMethodOptions.builder()
                                     .setCard(

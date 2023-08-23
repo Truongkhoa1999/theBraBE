@@ -12,6 +12,7 @@ public class StripeRequest {
 
     private Long amount;
     private String currency;
+    private String orderId;
 
     public StripeRequest(Long amount, String currency){
         this.amount = amount;
