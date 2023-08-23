@@ -72,10 +72,8 @@ public class UserController {
             if(existingUser.getGmail().equals(newUser.getGmail())){
                 return "Gmail already assigned with another account";
             }
-            return "Passed";
         }
+        return "Passed";
 
-
-        return "";
     }
 }
