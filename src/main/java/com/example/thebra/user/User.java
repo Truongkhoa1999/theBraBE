@@ -39,7 +39,7 @@ public class User {
     @Column(nullable = true, columnDefinition = "varchar(10)")
     private String phone;
 
-    @Column(nullable = false, columnDefinition = "varchar(20)")
+    @Column(nullable = false, columnDefinition = "text")
     @Pattern(regexp = "^[a-zA-Z0-9_.+-]+@gmail\\.com$", message = "Email address must be a valid Gmail address")
     private String gmail;
     private Role role;

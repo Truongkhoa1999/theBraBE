@@ -46,6 +46,13 @@ public class UserController {
 
     @PostMapping("/signup")
     public Map<String, String> signup(@RequestBody User user) {
+        System.out.println(user.getGmail());
+        System.out.println(user.getPassword());
+        System.out.println(user.getPhone());
+        System.out.println(user.getUsername());
+        System.out.println(user.getFirstName());
+        System.out.println(user.getLastName());
+
         User newUser = new User(
                 passwordEncoder.encode(user.getPassword()),
                 user.getUsername(),
