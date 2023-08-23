@@ -64,14 +64,14 @@ public class UserController {
     @PostMapping("/pregister")
     public String checkIfRegisterInfoValid(@RequestBody User newUser) {
         List<User> users = userRepository.findAll();
-
+        System.out.println(newUser.getGmail());
         for (User existingUser : users) {
             if (existingUser.getUsername().equals(newUser.getUsername())) {
                 return "Username already exists";
-            }
-            if(existingUser.getGmail().equalsIgnoreCase(newUser.getGmail().toLowerCase())){
+            } else if (existingUser.getGmail().toLowerCase().equalsIgnoreCase(newUser.getGmail().toLowerCase())) {
                 return "Gmail already assigned with another account";
             }
+
         }
         return "Passed";
 
