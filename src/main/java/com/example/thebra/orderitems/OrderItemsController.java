@@ -27,6 +27,7 @@ public class OrderItemsController {
     public List<OrderItems> getOrderItemsByOrderId(@PathVariable String orderId) {
         UUID orderIdUUID = UUID.fromString(orderId);
         List<OrderItems> orderItemsByOrderId = orderItemsService.findOrderItemsByOrderId(orderIdUUID);
+        System.out.println(orderItemsByOrderId);
         return orderItemsByOrderId;
     }
 
