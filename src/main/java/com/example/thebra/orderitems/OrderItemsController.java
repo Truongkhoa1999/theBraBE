@@ -24,7 +24,7 @@ public class OrderItemsController {
         return orderItemsRepository.findAll();
     }
     @GetMapping("/{id}")
-    public List <OrderItems> getOrderItemsByOrderId (@RequestBody UUID orderId){
+    public List <OrderItems> getOrderItemsByOrderId (@PathVariable UUID orderId){
         List<OrderItems> orderItemsByOrderId = orderItemsService.findOrderItemsByOrderId(orderId);
         return orderItemsByOrderId;
     }
