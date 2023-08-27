@@ -23,9 +23,10 @@ public class OrderItemsController {
 
         return orderItemsRepository.findAll();
     }
-    @GetMapping("/{id}")
-    public List <OrderItems> getOrderItemsByOrderId (@PathVariable UUID orderId){
-        List<OrderItems> orderItemsByOrderId = orderItemsService.findOrderItemsByOrderId(orderId);
+    @GetMapping("/{orderId}")
+    public List<OrderItems> getOrderItemsByOrderId(@PathVariable String orderId) {
+        UUID orderIdUUID = UUID.fromString(orderId);
+        List<OrderItems> orderItemsByOrderId = orderItemsService.findOrderItemsByOrderId(orderIdUUID);
         return orderItemsByOrderId;
     }
 
