@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/orderItems")
@@ -21,6 +22,11 @@ public class OrderItemsController {
 //        List<OrderItems> orderItems = orderItemsService.findOrderItems();
 
         return orderItemsRepository.findAll();
+    }
+    @GetMapping("/{id}")
+    public List <OrderItems> getOrderItemsByOrderId (@RequestBody UUID orderId){
+        List<OrderItems> orderItemsByOrderId = orderItemsService.findOrderItemsByOrderId(orderId);
+        return orderItemsByOrderId;
     }
 
     @PostMapping("/")
