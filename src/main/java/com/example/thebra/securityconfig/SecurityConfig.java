@@ -56,6 +56,8 @@ public class SecurityConfig {
                 .permitAll()
                 .requestMatchers(HttpMethod.GET, "api/v1/orderItems/")
                 .permitAll()
+                .requestMatchers(HttpMethod.GET, "api/v1/orderItems/{id}")
+                .permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/order/")
                 .permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/order/")
