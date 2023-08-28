@@ -32,12 +32,15 @@ public class IpFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String ipAddress = request.getRemoteAddr();
-        if (allowedIpAddresses.contains(ipAddress)) {
-            chain.doFilter(request, response);
-        } else {
-            response.getWriter().write("Access Denied"); // Customize your response here
+        if (isStripeWebhookEndpoint(request)) {
+            String ipAddress = request.getRemoteAddr();
+            if (!allowedIpAddresses.contains(ipAddress)) {
+                response.getWriter().write("Access Denied"); // Customize your response here
+                return;
+            }
         }
+
+        chain.doFilter(request, response);
     }
     private boolean isStripeWebhookEndpoint(ServletRequest request) {
         // Check if the request is targeting the Stripe webhook endpoint
