@@ -1,7 +1,9 @@
 package com.example.thebra.securityconfig;
 
 import com.example.thebra.filters.JwtFilter;
+import com.example.thebra.stripewebhook.IpFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,8 +20,13 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 public class SecurityConfig {
+
     @Autowired
     private JwtFilter jwtFilter;
+    @Bean
+    public IpFilter ipFilter() {
+        return new IpFilter();
+    }
 
     @Bean
     public AuthenticationManager authenticationManager(
