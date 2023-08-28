@@ -23,10 +23,6 @@ public class SecurityConfig {
 
     @Autowired
     private JwtFilter jwtFilter;
-    @Bean
-    public IpFilter ipFilter() {
-        return new IpFilter();
-    }
 
     @Bean
     public AuthenticationManager authenticationManager(
