@@ -25,12 +25,18 @@
 //            @RequestBody String payload,
 //            @RequestHeader("Stripe-Signature") String stripeSignature,
 //            HttpServletRequest request) {
+//        System.out.println("hei I found stripe signature, it just fine. I start to do further with the try catch block");
+//
 //        try {
 //            Event event = Webhook.constructEvent(payload, stripeSignature, webhookSecret);
 //            if ("payment_intent.succeeded".equals(event.getType())) {
 //                PaymentIntent paymentIntent = (PaymentIntent) event.getDataObjectDeserializer().getObject().orElse(null);
+//                System.out.println(" I found payment intent that hs successded status");
+//
 //                // Retrieve order_id from metadata
 //                String orderId = paymentIntent.getMetadata().get("order_id");
+//                System.out.println(" I found  the orderid in pevious payment intent");
+//
 //                Order detectOrder = orderService.findOrderById(UUID.fromString(orderId));
 //                if (detectOrder != null) {
 //                    if ("pending".equals(detectOrder.getPaymentStatus())) {
