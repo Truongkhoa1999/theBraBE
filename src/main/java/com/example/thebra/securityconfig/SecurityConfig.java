@@ -80,6 +80,8 @@ public class SecurityConfig {
                 .permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/customers/pregister")
                 .permitAll()
+                .requestMatchers(HttpMethod.POST, "/webhooks/payment-intent-succeeded")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
