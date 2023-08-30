@@ -37,11 +37,14 @@ public class StripeWebhookController {
 
                 // Retrieve order_id from metadata
                 String orderId = paymentIntent.getMetadata().get("order_id");
-                System.out.println(" I found  the orderid in pevious payment intent");
+                System.out.println(" Your detect orderId in metadata is "+ orderId);
 
                 Order detectOrder = orderService.findOrderById(UUID.fromString(orderId));
+                System.out.println(detectOrder);
                 if (detectOrder != null) {
                     if ("pending".equals(detectOrder.getPaymentStatus())) {
+                        System.out.println("your order after payment status update: " + detectOrder);
+
                         detectOrder.setPaymentStatus("paid");
                         System.out.println("Payment status changed to paid");
                     }
