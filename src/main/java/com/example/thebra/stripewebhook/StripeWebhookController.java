@@ -1,4 +1,5 @@
 package com.example.thebra.stripewebhook;
+
 import com.example.thebra.order.Order;
 import com.example.thebra.order.OrderService;
 import com.stripe.exception.SignatureVerificationException;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.UUID;
 import java.util.List;
 
@@ -20,7 +22,8 @@ public class StripeWebhookController {
     @Autowired
     OrderService orderService;
     @Value("${stripe.webhook.secret}")
-    private String webhookSecret ;
+    private String webhookSecret;
+
     @PostMapping("/payment-intent-succeeded")
     public ResponseEntity<String> handlePaymentIntentSucceeded(
             @RequestBody String payload,
@@ -37,17 +40,13 @@ public class StripeWebhookController {
 
                 // Retrieve order_id from metadata
                 String orderId = paymentIntent.getMetadata().get("order_id");
-                System.out.println(" Your detect orderId in metadata is "+ orderId);
+                System.out.println(" Your detect orderId in metadata is " + orderId);
 
-                Order detectOrder = orderService.findOrderById(UUID.fromString(orderId));
-                System.out.println(detectOrder);
-                if (detectOrder != null) {
-                    if ("pending".equals(detectOrder.getPaymentStatus())) {
-                        System.out.println("your order after payment status update: " + detectOrder);
+                // Update payment status using the service method
+                Order updatedOrder = orderService.updatePaymentStatus(UUID.fromString(orderId), "paid");
 
-                        detectOrder.setPaymentStatus("paid");
-                        System.out.println("Payment status changed to paid");
-                    }
+                if (updatedOrder != null) {
+                    System.out.println("Payment status changed to paid");
                 } else {
                     System.out.println("Order not found, payment status not changed");
                 }
