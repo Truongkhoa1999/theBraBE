@@ -30,6 +30,8 @@ public class OrderService {
         return orderRepository.findById(id).orElse(null);
     }
 
+    public List<Order> findOrderByUserId(UUID userId){return orderRepository.findByUserId(userId);}
+
     public Order createNewOrder(Order order) {
         return orderRepository.save(order);
     }

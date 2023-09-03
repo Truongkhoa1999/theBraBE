@@ -15,6 +15,10 @@ import java.util.function.Function;
 @Service
 public class JwtUtils {
     final String secret = "IdontgiveadamnwhatyouthinkIdoitformeandfuckthewholeuniverse";
+
+    public String getSecret (){
+        return secret;
+    }
     public String createToken(Map<String, Object> claims, String subject) {
         return
                 Jwts
