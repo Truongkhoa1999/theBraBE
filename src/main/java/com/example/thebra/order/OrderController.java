@@ -42,12 +42,17 @@ public class OrderController {
     public ResponseEntity<List<Order>> getOrdersByUserId(@RequestHeader("Authorization") String authorizationHeader) {
         String secret = jwtUtils.getSecret();
         String jwtToken = authorizationHeader.replace("Bearer", "");
+        System.out.println("dected jwtoken");
         try {
             Jws<Claims> claims = Jwts.parser()
                     .setSigningKey(jwtUtils.getSecret())
                     .parseClaimsJws(jwtToken);
             String userId = claims.getBody().get("userId", String.class);
+            System.out.println("dected userId");
+
             List<Order> orders = orderService.findOrderByUserId(UUID.fromString(userId));
+            System.out.println("generate orderList");
+
             return new ResponseEntity<>(orders, HttpStatus.OK);
 
 
