@@ -1,8 +1,11 @@
 package com.example.thebra.user;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import com.example.thebra.utils.JwtUtils;
@@ -43,6 +46,30 @@ public class UserController {
         token.put("token", jwtUtils.generateToken(user));
         return token;
     }
+
+    @PostMapping("/signin2")
+    public ResponseEntity<?> login2(@RequestBody AuthenticateRequest authenticateRequest) {
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            authenticateRequest.getUsername(),
+                            authenticateRequest.getPassword()
+                    )
+            );
+
+            User user = userRepository.findByUsername(authenticateRequest.getUsername());
+            Map<String, String> token = new HashMap<>();
+            token.put("token", jwtUtils.generateToken(user));
+
+            return ResponseEntity.ok(token);
+        } catch (AuthenticationException e) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "Password or username is incorrect.");
+
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+        }
+    }
+
 
     @PostMapping("/signup")
     public Map<String, String> signup(@RequestBody User user) {

@@ -72,7 +72,7 @@ public class SecurityConfig {
                 .permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/order/forNonUser")
                 .permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/customers/signin")
+                .requestMatchers(HttpMethod.POST, "/api/v1/customers/signin2")
                 .permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/customers/signup")
                 .permitAll()
