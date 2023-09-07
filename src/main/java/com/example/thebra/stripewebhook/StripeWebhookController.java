@@ -1,5 +1,6 @@
 package com.example.thebra.stripewebhook;
 
+import com.example.thebra.email.EmailSenderService;
 import com.example.thebra.order.Order;
 import com.example.thebra.order.OrderService;
 import com.stripe.exception.SignatureVerificationException;
@@ -25,6 +26,8 @@ import javax.mail.internet.*;
 public class StripeWebhookController {
     @Autowired
     OrderService orderService;
+    @Autowired
+    EmailSenderService emailSenderService;
     @Value("${stripe.webhook.secret}")
     private String webhookSecret;
 
@@ -55,7 +58,9 @@ public class StripeWebhookController {
 
                 if (updatedOrder != null) {
                     System.out.println("Payment status changed to paid");
-                    sendThankYouEmail(clientEmail);
+                    String subject = "Thank You for Your Order";
+                    String body = "Thank you for your order at our store. The order ID will be updated to your account as soon as possible. Thus, you can track your delivery process.";
+                    emailSenderService.sendEmail(clientEmail, subject, body);
                 } else {
                     System.out.println("Order not found, payment status not changed");
                 }
@@ -74,42 +79,38 @@ public class StripeWebhookController {
     }
 
     //    Second feature:
-    @Value("${spring.mail.username}")
-    private String emailUsername;
 
-    @Value("${spring.mail.password}")
-    private String emailPassword;
 
-    private void sendThankYouEmail(String clientEmail) {
-
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-        System.out.println("props ready" + props);
-        Session session = Session.getInstance(props, new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(emailUsername, emailPassword);
-            }
-        });
-
-        try {
-            System.out.println("Before sending mail");
-
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(emailUsername));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(clientEmail));
-            message.setSubject("Thank You for Your Order");
-            message.setText("Thank you for your order at our store. The order ID will be updated to your account as soon as possible. Thus, you can track your delivery process.");
-
-            Transport.send(message);
-            System.out.println("Sending mail");
-
-        } catch (MessagingException e) {
-            System.out.println(e);
-
-            e.printStackTrace();
-        }
-    }
+//    private void sendThankYouEmail(String clientEmail) {
+//
+//        Properties props = new Properties();
+//        props.put("mail.smtp.auth", "true");
+//        props.put("mail.smtp.starttls.enable", "true");
+//        props.put("mail.smtp.host", "smtp.gmail.com");
+//        props.put("mail.smtp.port", "587");
+//        System.out.println("props ready" + props);
+//        Session session = Session.getInstance(props, new Authenticator() {
+//            protected PasswordAuthentication getPasswordAuthentication() {
+//                return new PasswordAuthentication(emailUsername, emailPassword);
+//            }
+//        });
+//
+//        try {
+//            System.out.println("Before sending mail");
+//
+//            Message message = new MimeMessage(session);
+//            message.setFrom(new InternetAddress(emailUsername));
+//            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(clientEmail));
+//            message.setSubject("Thank You for Your Order");
+//            message.setText("Thank you for your order at our store. The order ID will be updated to your account as soon as possible. Thus, you can track your delivery process.");
+//
+//            Transport.send(message);
+//            System.out.println("Sending mail");
+//
+//        } catch (MessagingException e) {
+//            System.out.println(e);
+//
+//            e.printStackTrace();
+//        }
+//    }
 }
