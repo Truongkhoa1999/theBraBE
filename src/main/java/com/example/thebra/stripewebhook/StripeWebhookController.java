@@ -45,6 +45,8 @@ public class StripeWebhookController {
                 // Retrieve order_id from metadata
                 String orderId = paymentIntent.getMetadata().get("order_id");
                 String clientEmail = paymentIntent.getMetadata().get("user_email");
+                System.out.println("I found client email" + clientEmail);
+
 
                 System.out.println(" Your detect orderId in metadata is " + orderId);
 
@@ -72,16 +74,20 @@ public class StripeWebhookController {
     }
 
     //    Second feature:
-    private final String emailUsername = "tdkhoa.aqua@gmail.com";
-    private final String emailPassword = "standbyme2003";
+    @Value("${spring.mail.username}")
+    private String emailUsername;
+
+    @Value("${spring.mail.password}")
+    private String emailPassword;
+
     private void sendThankYouEmail(String clientEmail) {
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.your-email-provider.com");
+        props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
-
+        System.out.println("props ready" + props);
         Session session = Session.getInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(emailUsername, emailPassword);
@@ -89,6 +95,8 @@ public class StripeWebhookController {
         });
 
         try {
+            System.out.println("Before sending mail");
+
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(emailUsername));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(clientEmail));
@@ -96,7 +104,11 @@ public class StripeWebhookController {
             message.setText("Thank you for your order at our store. The order ID will be updated to your account as soon as possible. Thus, you can track your delivery process.");
 
             Transport.send(message);
+            System.out.println("Sending mail");
+
         } catch (MessagingException e) {
+            System.out.println(e);
+
             e.printStackTrace();
         }
     }
