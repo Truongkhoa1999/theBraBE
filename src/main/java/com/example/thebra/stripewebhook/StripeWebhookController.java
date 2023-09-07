@@ -18,8 +18,7 @@ import java.util.Properties;
 import java.util.UUID;
 import java.util.List;
 
-import javax.mail.*;
-import javax.mail.internet.*;
+
 
 @RestController
 @RequestMapping("/webhooks")
@@ -79,7 +78,11 @@ public class StripeWebhookController {
     }
 
     //    Second feature:
+    @Value("${spring.mail.username}")
+    private String emailUsername;
 
+    @Value("${spring.mail.password}")
+    private String emailPassword;
 
 //    private void sendThankYouEmail(String clientEmail) {
 //
