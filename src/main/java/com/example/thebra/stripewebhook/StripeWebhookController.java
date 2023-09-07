@@ -13,8 +13,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Properties;
 import java.util.UUID;
 import java.util.List;
+
+import javax.mail.*;
+import javax.mail.internet.*;
 
 @RestController
 @RequestMapping("/webhooks")
@@ -40,6 +44,8 @@ public class StripeWebhookController {
 
                 // Retrieve order_id from metadata
                 String orderId = paymentIntent.getMetadata().get("order_id");
+                String clientEmail = paymentIntent.getMetadata().get("user_email");
+
                 System.out.println(" Your detect orderId in metadata is " + orderId);
 
                 // Update payment status using the service method
@@ -47,6 +53,7 @@ public class StripeWebhookController {
 
                 if (updatedOrder != null) {
                     System.out.println("Payment status changed to paid");
+                    sendThankYouEmail(clientEmail);
                 } else {
                     System.out.println("Order not found, payment status not changed");
                 }
@@ -64,4 +71,33 @@ public class StripeWebhookController {
         return ResponseEntity.ok("Webhook event ignored");
     }
 
+    //    Second feature:
+    private final String emailUsername = "tdkhoa.aqua@gmail.com";
+    private final String emailPassword = "standbyme2003";
+    private void sendThankYouEmail(String clientEmail) {
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.your-email-provider.com");
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(emailUsername, emailPassword);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(emailUsername));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(clientEmail));
+            message.setSubject("Thank You for Your Order");
+            message.setText("Thank you for your order at our store. The order ID will be updated to your account as soon as possible. Thus, you can track your delivery process.");
+
+            Transport.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 }
