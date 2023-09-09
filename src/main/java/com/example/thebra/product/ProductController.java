@@ -30,17 +30,21 @@ public class ProductController {
 
     @GetMapping("/orderItems/{orderId}")
     public List<String> getProductsByOrderId(@PathVariable UUID id) {
-//        find list of products related to given orderId
+        System.out.println("I recieved UUID: "+ id);
         List<OrderItems> listOfOrderItemsById = orderItemsService.findOrderItemsByOrderId(id);
+        System.out.println("I found orderItems relevant to the orderIdD: "+ listOfOrderItemsById);
+
         List<String> productImages = new ArrayList<>();
 
         for (OrderItems orderItem : listOfOrderItemsById) {
             UUID productId = orderItem.getProductId();
-            // Assuming you have a ProductService to fetch product details by productId
+            System.out.println("Each productId: "+ productId);
+
             Product product = productService.findProductById(productId);
 
             if (product != null && !product.getImages().isEmpty()) {
                 // Add the first image URL to the list
+                System.out.println("Trying to add push each item to link array");
                 productImages.add(product.getImages().get(0));
             }
         }
