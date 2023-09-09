@@ -52,7 +52,7 @@ public class SecurityConfig {
                 .permitAll()
                 .requestMatchers(HttpMethod.GET, "api/v1/products/{id}")
                 .permitAll()
-                .requestMatchers(HttpMethod.GET, "api/v1/products/orderItems/{orderId}")
+                .requestMatchers(HttpMethod.GET, "api/v1/products/orderItems/{id}")
                 .permitAll()
                 .requestMatchers(HttpMethod.GET, "api/v1/products/updateProductSize")
                 .permitAll()

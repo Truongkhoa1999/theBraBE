@@ -28,7 +28,7 @@ public class ProductController {
         return products;
     }
 
-    @GetMapping("/orderItems/{orderId}")
+    @GetMapping("/orderItems/{id}")
     public List<String> getProductsByOrderId(@PathVariable UUID id) {
         System.out.println("I recieved UUID: "+ id);
         List<OrderItems> listOfOrderItemsById = orderItemsService.findOrderItemsByOrderId(id);
