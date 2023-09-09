@@ -23,6 +23,7 @@ public class OrderItemsController {
 
         return orderItemsRepository.findAll();
     }
+
     @GetMapping("/{orderId}")
     public List<OrderItems> getOrderItemsByOrderId(@PathVariable String orderId) {
         UUID orderIdUUID = UUID.fromString(orderId);
@@ -32,17 +33,24 @@ public class OrderItemsController {
 
     @PostMapping("/")
     public List<OrderItems> createOrderItems(@RequestBody List<OrderItems> orderItemsList) {
-        List<OrderItems>   savedOrderItems = new ArrayList<>();
-        for (OrderItems orderItems : orderItemsList){
-            savedOrderItems.add(orderItemsService.createNewOrderItems(orderItems));
+        List<OrderItems> savedOrderItems = new ArrayList<>();
+        for (OrderItems orderItems : orderItemsList) {
+            if (orderItems.getQuantity() > 0) {
+                savedOrderItems.add(orderItemsService.createNewOrderItems(orderItems));
+
+            }
         }
         return savedOrderItems;
     }
+
     @PostMapping("/ForNonUser")
     public List<OrderItems> createOrderItemsForNonUser(@RequestBody List<OrderItems> orderItemsList) {
-        List<OrderItems>   savedOrderItems = new ArrayList<>();
-        for (OrderItems orderItems : orderItemsList){
-            savedOrderItems.add(orderItemsService.createNewOrderItems(orderItems));
+        List<OrderItems> savedOrderItems = new ArrayList<>();
+        for (OrderItems orderItems : orderItemsList) {
+            if (orderItems.getQuantity() > 0) {
+                savedOrderItems.add(orderItemsService.createNewOrderItems(orderItems));
+
+            }
         }
         return savedOrderItems;
     }
