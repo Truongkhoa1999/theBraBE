@@ -59,7 +59,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "api/v1/orderItems/")
                 .permitAll()
                 .requestMatchers(HttpMethod.GET, "api/v1/orderItems/{orderId}")
-                .authenticated()
+                .permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/order/")
                 .permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/order/")
