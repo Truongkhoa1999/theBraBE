@@ -24,16 +24,16 @@ public class EmailSenderService {
     }
 
     public void reciveEmail (
-            String clientEmail,
+            String gmail,
             String subject,
-            String body
+            String message
     ){
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(clientEmail);
-        message.setTo("tdkhoa.auqa@gmail.com");
-        message.setText(body);
-        message.setSubject(subject);
-        mailSender.send(message);
+        SimpleMailMessage messagE = new SimpleMailMessage();
+        messagE.setFrom(gmail);
+        messagE.setTo("tdkhoa.auqa@gmail.com");
+        messagE.setText(message);
+        messagE.setSubject(subject);
+        mailSender.send(messagE);
         System.out.println("Mail sent sucessfully");
     }
 }

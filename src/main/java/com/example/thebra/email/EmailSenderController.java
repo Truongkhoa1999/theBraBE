@@ -12,10 +12,10 @@ public class EmailSenderController {
     @PostMapping("/client")
     public String sendCustomEmailtoMyBussiness(@RequestBody EmailRequest emailRequest) {
         try {
-            String clientEmail = emailRequest.getEmail();
+            String gmail = emailRequest.getGmail();
             String subject = emailRequest.getSubject();
-            String body = emailRequest.getBody();
-            emailSenderService.reciveEmail(clientEmail, subject, body);
+            String message = emailRequest.getMessage();
+            emailSenderService.reciveEmail(gmail, subject, message);
             System.out.println("send done");
         } catch (Exception e) {
             e.printStackTrace();
