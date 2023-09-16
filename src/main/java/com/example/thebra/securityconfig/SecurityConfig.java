@@ -62,6 +62,8 @@ public class SecurityConfig {
                 .permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/order/")
                 .permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/email/")
+                .permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/order/")
                 .authenticated()
                 .requestMatchers(HttpMethod.GET, "/api/v1/order/myOrders")

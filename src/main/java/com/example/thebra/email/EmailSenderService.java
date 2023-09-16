@@ -22,4 +22,18 @@ public class EmailSenderService {
         mailSender.send(message);
         System.out.println("Mail sent sucessfully");
     }
+
+    public void reciveEmail (
+            String clientEmail,
+            String subject,
+            String body
+    ){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(clientEmail);
+        message.setTo("tdkhoa.auqa@gmail.com");
+        message.setText(body);
+        message.setSubject(subject);
+        mailSender.send(message);
+        System.out.println("Mail sent sucessfully");
+    }
 }
