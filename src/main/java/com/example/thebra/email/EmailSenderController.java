@@ -9,13 +9,13 @@ public class EmailSenderController {
     @Autowired
     EmailSenderService emailSenderService;
 
-    @PostMapping("/")
+    @PostMapping("/client")
     public String sendCustomEmailtoMyBussiness(@RequestBody EmailRequest emailRequest) {
         try {
-            String clientEmail = emailRequest.getEmail();
+            String clientEmail = emailRequest.getGmail();
             String subject = emailRequest.getSubject();
-            String message = emailRequest.getMessage();
-            emailSenderService.reciveEmail(clientEmail, subject, message);
+            String body = emailRequest.getBody();
+            emailSenderService.reciveEmail(clientEmail, subject, body);
             System.out.println("send done");
         } catch (Exception e) {
             e.printStackTrace();
