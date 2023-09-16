@@ -30,8 +30,8 @@ public class EmailSenderService {
     ){
         String messageText = "Sender's Email: " + gmail + "\n\n" + body;
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("truong.khoa@integrify.io");
-        message.setTo("tdkhoa.auqa@gmail.com");
+        message.setFrom("tdkhoa.auqa@gmail.com");
+        message.setTo("thebra.lingerie@gmail.com");
         message.setText(messageText);
         message.setSubject(subject);
         mailSender.send(message);
