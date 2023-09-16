@@ -15,7 +15,7 @@ public class EmailSenderService {
             String body
     ){
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("tdkhoa.aqua@gmail.com");
+        message.setFrom("thebra.lingerie@gmail.com");
         message.setTo(toEmail);
         message.setText(body);
         message.setSubject(subject);
