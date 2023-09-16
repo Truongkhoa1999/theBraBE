@@ -20,7 +20,7 @@ public class EmailSenderService {
         message.setText(body);
         message.setSubject(subject);
         mailSender.send(message);
-        System.out.println("Mail sent sucessfully");
+        System.out.println("Mail sent");
     }
 
     public void reciveEmail (
@@ -30,7 +30,7 @@ public class EmailSenderService {
     ){
         String messageText = "Sender's Email: " + gmail + "\n\n" + body;
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("tdkhoa.auqa@gmail.com");
+        message.setFrom(gmail.toString().trim());
         message.setTo("thebra.lingerie@gmail.com");
         message.setText(messageText);
         message.setSubject(subject);
