@@ -28,10 +28,9 @@ public class EmailSenderService {
             String subject,
             String body
     ){
-        String forwardingAddress = "thuyhang7470@gmail.com";
         String messageText = "Sender's Email: " + gmail + "\n\n" + body;
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(forwardingAddress);
+        message.setFrom("truong.khoa@integrify.io");
         message.setTo("tdkhoa.auqa@gmail.com");
         message.setText(messageText);
         message.setSubject(subject);
@@ -42,5 +41,4 @@ public class EmailSenderService {
         sendEmail(gmail,replySubject,replyBody);
 
     }
-//    Auto send thank you response
 }
