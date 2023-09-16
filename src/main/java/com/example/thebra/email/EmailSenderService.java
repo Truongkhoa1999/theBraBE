@@ -28,12 +28,13 @@ public class EmailSenderService {
             String subject,
             String body
     ){
+        String forwardingAddress = "forwarding@gmail.com";
+        String messageText = "Sender's Email: " + gmail + "\n\n" + body;
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(gmail);
+        message.setFrom(forwardingAddress);
         message.setTo("tdkhoa.auqa@gmail.com");
         message.setText(body);
         message.setSubject(subject);
         mailSender.send(message);
-        System.out.println("Mail sent sucessfully");
     }
 }
