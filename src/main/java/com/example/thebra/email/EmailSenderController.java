@@ -14,8 +14,8 @@ public class EmailSenderController {
         try {
             String gmail = emailRequest.getGmail();
             String subject = emailRequest.getSubject();
-            String message = emailRequest.getMessage();
-            emailSenderService.reciveEmail(gmail, subject, message);
+            String body = emailRequest.getBody();
+            emailSenderService.reciveEmail(gmail, subject, body);
             System.out.println("send done");
         } catch (Exception e) {
             e.printStackTrace();

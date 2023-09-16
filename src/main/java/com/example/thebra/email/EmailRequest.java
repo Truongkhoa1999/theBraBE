@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class EmailRequest {
     private String gmail;
     private String subject;
-    private String message;
+    private String body;
 }
